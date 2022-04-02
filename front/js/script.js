@@ -14,14 +14,14 @@ fetch("http://localhost:3000/api/products")
     //récupération des éléments du tableau et insertion de chaque élément dans la page d'accueil
 
 
-    const section = document.getElementById("items"); // récupère la balise où afficher les produits
+    const section = document.getElementById("items"); // recherche dans le document l'élément dont l'id est "items (récupère la balise où afficher les produits)
 
     for (let i = 0; i < value.length; i++) { // itération sur tous les produits du tableau
 
       const element = value[i]; // element = un produit [index dans le tableau]
 
 
-      // création des éléments à insérer dans le DOM
+      // création balises à l'intérieur de la balise section
 
       const lien = document.createElement("a"); 
       const article = document.createElement("article"); 
@@ -37,9 +37,9 @@ fetch("http://localhost:3000/api/products")
       image.src=element.imageUrl; // insère imageUrl dans l'attribut src de la balise image
       image.alt=element.altTxt; // modifie le contenu de alt
 
-      titre.innerHTML=element.name; // modifie le contenu de h3
+      titre.innerHTML=element.name; // modification texte à l'intérieur de la balise h3
 
-      paragraphe.innerHTML=element.description; // modifie le contenu de p
+      paragraphe.innerHTML=element.description; // modification texte à l'intérieur de la balise p
 
 
       // ajout des éléments en tant qu'enfant (pour les voir sur la page)
