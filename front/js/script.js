@@ -37,7 +37,7 @@ fetch("http://localhost:3000/api/products")
       image.src=element.imageUrl; // insère imageUrl dans l'attribut src de la balise image
       image.alt=element.altTxt; // modifie le contenu de alt
 
-      titre.innerHTML=element.name; // modification texte à l'intérieur de la balise h3
+      titre.innerHTML=element.name; // modification titre à l'intérieur de la balise h3
 
       paragraphe.innerHTML=element.description; // modification texte à l'intérieur de la balise p
 
