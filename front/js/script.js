@@ -17,17 +17,7 @@ fetch("http://localhost:3000/api/products")
 
     const section = document.getElementById("items"); // recherche dans le document l'élément dont l'id est "items (récupère la balise où afficher les produits)
 
-    /*for (const canape of tousLesCanapes) {
-      
-    }
-
-    tousLesCanapes.forEach(canape => {
-      
-    });*/
-
     for (let i = 0; i < tousLesCanapes.length; i++) {
-      // itération sur tous les produits du tableau
-
       const canape = tousLesCanapes[i]; // canapé = un produit [index dans le tableau]
 
       // création des balises à l'intérieur de la balise section et stockage dans les const
@@ -44,8 +34,6 @@ fetch("http://localhost:3000/api/products")
 
       image.src = canape.imageUrl; // insère imageUrl dans l'attribut src de la balise image
       image.alt = canape.altTxt; // modifie le contenu de alt
-
-      //image.setAttribute("src", canape.imageUrl);
 
       titre.innerHTML = canape.name; // modification titre à l'intérieur de la balise h3
 

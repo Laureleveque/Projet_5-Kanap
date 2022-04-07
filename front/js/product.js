@@ -16,30 +16,44 @@ fetch("http://localhost:3000/api/products/" + id)
     console.log(canape);
 
     // création de l'élément image
+
+    const divImage = document.getElementsByClassName("item__img")[0]; //récupération de la div de l'image
+
     const image = document.createElement("img");
+
     image.src = canape.imageUrl; // insère imageUrl dans l'attribut src de la balise image
     image.alt = canape.altTxt; // modifie le contenu de alt
 
-    //récupération de la div de l'image
-    const divImage = document.getElementsByClassName("item__img")[0];
+    divImage.appendChild(image); // insertion de l'image
 
-    // insertion de l'image
-    divImage.appendChild(image);
+    // récupération de l'élément titre et insertion contenu
 
-    // récupération de l'élément titre
     const titre = document.getElementById("title");
     titre.innerHTML = canape.name;
 
-    // récupération de l'élément prix
+    // récupération de l'élément prix et insertion contenu
+
     const prix = document.getElementById("price");
     prix.innerHTML = canape.price;
 
-    // récupération de l'élément description
+    // récupération de l'élément description et insertion contenu
+
     const paragraphe = document.getElementById("description");
     paragraphe.innerHTML = canape.description;
 
-    // récupération de l'élément de sélection de couleur
-    const couleurs = document.getElementById("colors");
+    // choix des couleurs pour chaque canapé
+
+    const couleurs = document.getElementById("colors"); // récupération de l'élément de sélection de couleur
+
+    for (let i = 0; i < canape.colors.length; i++) {
+      // itération sur chaque couleur présente dans le tableau
+      const couleur = canape.colors[i];
+
+      const choix = document.createElement("option"); // création de l'élément option (autant d'options que de couleurs)
+      choix.innerHTML = couleur; // insertion de la couleur
+      choix.value = couleur;
+      couleurs.appendChild(choix);
+    }
 
     //  si code statut erroné
   })
