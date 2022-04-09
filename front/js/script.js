@@ -36,8 +36,10 @@ fetch("http://localhost:3000/api/products")
       image.alt = canape.altTxt; // modifie le contenu de alt
 
       titre.innerHTML = canape.name; // modification titre à l'intérieur de la balise h3
+      titre.classList.add("productName");
 
       paragraphe.innerHTML = canape.description; // modification texte à l'intérieur de la balise p
+      paragraphe.classList.add("productDescription");
 
       // ajout des éléments en tant qu'enfant (pour les voir sur la page)
 

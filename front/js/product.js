@@ -55,6 +55,15 @@ fetch("http://localhost:3000/api/products/" + id)
       couleurs.appendChild(choix);
     }
 
+    const bouton = document.getElementById("addToCart");
+    bouton.addEventListener("click", (event) => {
+      const quantite = parseInt(document.getElementById("quantity").value);
+      const couleur = document.getElementById("colors").value;
+      if (couleur != "") {
+        addPanier({ id: id, quantite: quantite, couleur: couleur });
+      }
+    });
+
     //  si code statut erroné
   })
   .catch(function (err) {
