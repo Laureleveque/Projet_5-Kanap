@@ -55,6 +55,8 @@ fetch("http://localhost:3000/api/products/" + id)
       couleurs.appendChild(choix);
     }
 
+    // création de l'élément bouton + écoute de l'événement click
+
     const bouton = document.getElementById("addToCart");
     bouton.addEventListener("click", (event) => {
       const quantite = parseInt(document.getElementById("quantity").value);
