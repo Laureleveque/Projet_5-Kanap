@@ -36,7 +36,7 @@ for (let i = 0; i < panier.length; i++) {
       image.alt = canape.altTxt;
       imageDiv.appendChild(image);
 
-      // récupération titre, couleur et prix
+      // création éléments et récupération titre, couleur et prix
 
       const contentDiv = document.createElement("div");
       contentDiv.classList.add("cart__item__content");
@@ -85,6 +85,7 @@ for (let i = 0; i < panier.length; i++) {
 
       const deleteDiv = document.createElement("div");
       deleteDiv.classList.add("cart__item__content__settings__delete");
+      article.appendChild(deleteDiv);
 
       const suppression = document.createElement("p");
       suppression.classList.add("deleteItem");
@@ -104,4 +105,15 @@ for (let i = 0; i < panier.length; i++) {
 
 // gestion total article(s) dans le panier
 
+const totalQuantite = document.getElementById("totalQuantity");
+totalQuantite.innerHTML = getTotalProduit();
+
+saisie.addEventListener("change", (event) => {
+  changeQuantite(produit, saisie.value);
+});
+
 // gestion prix total
+
+const totalprix = document.getElementById("totalPrice");
+
+// gestion des données du formulaire

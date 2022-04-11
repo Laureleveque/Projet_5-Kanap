@@ -77,7 +77,7 @@ function getTotalPrix() {
   let panier = getPanier();
   let total = 0;
   for (let produit of panier) {
-    total += produit.quantite.produit.prix;
+    total = produit.quantite * produit.prix;
   }
   return total;
 }
