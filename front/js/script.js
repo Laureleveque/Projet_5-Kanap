@@ -28,17 +28,17 @@ fetch("http://localhost:3000/api/products")
       const titre = document.createElement("h3");
       const paragraphe = document.createElement("p");
 
-      // modification des contenus
+      // insertion des contenus
 
       lien.href = "./product.html?id=" + canape._id; // modification de l'attribut href de la balise a
 
       image.src = canape.imageUrl; // insère imageUrl dans l'attribut src de la balise image
-      image.alt = canape.altTxt; // modifie le contenu de alt
+      image.alt = canape.altTxt; // insertion contenu de alt
 
-      titre.innerHTML = canape.name; // modification titre à l'intérieur de la balise h3
+      titre.innerHTML = canape.name; // insertion titre à l'intérieur de la balise h3
       titre.classList.add("productName");
 
-      paragraphe.innerHTML = canape.description; // modification texte à l'intérieur de la balise p
+      paragraphe.innerHTML = canape.description; // insertion texte à l'intérieur de la balise p
       paragraphe.classList.add("productDescription");
 
       // ajout des éléments en tant qu'enfant (pour les voir sur la page)
@@ -49,9 +49,9 @@ fetch("http://localhost:3000/api/products")
       article.appendChild(titre);
       article.appendChild(paragraphe);
     }
-
-    //  si code statut erroné
   })
+  //  si code statut erroné
+
   .catch(function (err) {
     console.error(err);
   });
