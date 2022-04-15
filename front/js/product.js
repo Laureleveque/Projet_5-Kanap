@@ -15,16 +15,16 @@ fetch("http://localhost:3000/api/products/" + id)
   .then(function (canape) {
     console.log(canape);
 
-    // création de l'élément image
+    // création de l'élément image et insertion image/alt
 
-    const divImage = document.getElementsByClassName("item__img")[0]; //récupération de la div de l'image
+    const divImage = document.getElementsByClassName("item__img")[0];
 
     const image = document.createElement("img");
 
-    image.src = canape.imageUrl; // insère imageUrl dans l'attribut src de la balise image
-    image.alt = canape.altTxt; // modifie le contenu de alt
+    image.src = canape.imageUrl;
+    image.alt = canape.altTxt;
 
-    divImage.appendChild(image); // insertion de l'image
+    divImage.appendChild(image);
 
     // récupération de l'élément titre et insertion contenu
 
@@ -41,33 +41,44 @@ fetch("http://localhost:3000/api/products/" + id)
     const paragraphe = document.getElementById("description");
     paragraphe.innerHTML = canape.description;
 
-    // choix des couleurs pour chaque canapé
+    // choix de la couleur pour chaque canapé
 
-    const couleurs = document.getElementById("colors"); // récupération de l'élément de sélection de couleur
+    const couleurs = document.getElementById("colors");
 
     for (let i = 0; i < canape.colors.length; i++) {
       // itération sur chaque couleur présente dans le tableau
       const couleur = canape.colors[i];
 
-      const choix = document.createElement("option"); // création de l'élément option (autant d'options que de couleurs)
-      choix.innerHTML = couleur; // insertion de la couleur
+      const choix = document.createElement("option");
+      choix.innerHTML = couleur;
       choix.value = couleur;
       couleurs.appendChild(choix);
     }
 
-    // création de l'élément bouton + écoute de l'événement click
+    // écoute de l'événement click
 
     const bouton = document.getElementById("addToCart");
-    bouton.addEventListener("click", (event) => {
+    bouton.addEventListener("click", function (event) {
       const quantite = parseInt(document.getElementById("quantity").value);
       const couleur = document.getElementById("colors").value;
+      const parent = document.getElementsByClassName("item__content")[0];
       if (couleur != "") {
         addPanier({ id: id, quantite: quantite, couleur: couleur });
+
+        //lien vers page cart.html
+
+        document.location.href = "../html/cart.html";
+      } else if (parent.children.length == 4) {
+        const message = document.createElement("p");
+        message.innerHTML = "Veuillez choisir une couleur";
+        message.style.color = "red";
+        parent.appendChild(message);
       }
     });
-
-    //  si code statut erroné
   })
+
+  //  si code statut erroné
+
   .catch(function (err) {
     console.error(err);
   });

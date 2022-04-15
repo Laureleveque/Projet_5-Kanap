@@ -52,17 +52,12 @@ function changeQuantite(produit, quantite) {
   {
     foundProduit.quantite = parseInt(quantite);
   }
-  if (foundProduit.quantite <= 0) {
-    // cas où la quantité est négative
-    removeItem(foundProduit);
-  } else {
-    savePanier(panier);
-  }
+  savePanier(panier);
 }
 
 // fonction total quantité dans le panier
 
-function getTotalProduit() {
+function getTotalQuantite() {
   let panier = getPanier();
   let number = 0;
   for (let produit of panier) {
@@ -71,13 +66,14 @@ function getTotalProduit() {
   return number;
 }
 
-// fonction calcul du prix
+/* fonction calcul du prix
 
 function getTotalPrix() {
   let panier = getPanier();
   let total = 0;
   for (let produit of panier) {
-    total = produit.quantite * produit.prix;
+    total += produit.quantite * produit.prix;
   }
   return total;
 }
+*/
