@@ -4,6 +4,7 @@ const url = new URL(window.location.href);
 const id = url.searchParams.get("id");
 console.log(id);
 
+
 // Envoi de la requête spécifique à chaque id
 
 fetch("http://localhost:3000/api/products/" + id)
@@ -14,6 +15,7 @@ fetch("http://localhost:3000/api/products/" + id)
   })
   .then(function (canape) {
     console.log(canape);
+
 
     // création de l'élément image et insertion image/alt
 
@@ -26,27 +28,31 @@ fetch("http://localhost:3000/api/products/" + id)
 
     divImage.appendChild(image);
 
+
     // récupération de l'élément titre et insertion contenu
 
     const titre = document.getElementById("title");
     titre.innerHTML = canape.name;
+
 
     // récupération de l'élément prix et insertion contenu
 
     const prix = document.getElementById("price");
     prix.innerHTML = canape.price;
 
+
     // récupération de l'élément description et insertion contenu
 
     const paragraphe = document.getElementById("description");
     paragraphe.innerHTML = canape.description;
 
+
     // choix de la couleur pour chaque canapé
 
     const couleurs = document.getElementById("colors");
 
-    for (let i = 0; i < canape.colors.length; i++) {
-      // itération sur chaque couleur présente dans le tableau
+    for (let i = 0; i < canape.colors.length; i++) { // itération sur chaque couleur présente dans le tableau
+     
       const couleur = canape.colors[i];
 
       const choix = document.createElement("option");
@@ -54,6 +60,7 @@ fetch("http://localhost:3000/api/products/" + id)
       choix.value = couleur;
       couleurs.appendChild(choix);
     }
+
 
     // écoute de l'événement click
 
@@ -65,7 +72,8 @@ fetch("http://localhost:3000/api/products/" + id)
       if (couleur != "") {
         addPanier({ id: id, quantite: quantite, couleur: couleur });
 
-        //lien vers page cart.html
+    
+    //lien vers page cart.html
 
         document.location.href = "../html/cart.html";
       } else if (parent.children.length == 4) {
