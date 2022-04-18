@@ -1,3 +1,6 @@
+          //  Insertion des produits dans la page d’accueil
+
+
 // envoi requête Get - Récupération des données de l'API
 
 fetch("http://localhost:3000/api/products")

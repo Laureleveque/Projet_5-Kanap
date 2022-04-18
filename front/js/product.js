@@ -1,4 +1,8 @@
-// récupération du paramètre id de l'URL
+
+            // Faire le lien entre un produit de la page d’accueil et la page Produit
+
+
+// récupération de l'id du produit dans l'URL
 
 const url = new URL(window.location.href);
 const id = url.searchParams.get("id");
@@ -17,7 +21,9 @@ fetch("http://localhost:3000/api/products/" + id)
     console.log(canape);
 
 
-    // création de l'élément image et insertion image/alt
+                  // Insertion d'un produit et de ses détails 
+
+    // création de l'élément image et insertion image+alt
 
     const divImage = document.getElementsByClassName("item__img")[0];
 
@@ -62,21 +68,22 @@ fetch("http://localhost:3000/api/products/" + id)
     }
 
 
-    // écoute de l'événement click
+                  // Ajout des produits dans le panier
+
+
+    // écoute de l'événement click "Ajouter au Panier"
 
     const bouton = document.getElementById("addToCart");
     bouton.addEventListener("click", function (event) {
-      const quantite = parseInt(document.getElementById("quantity").value);
-      const couleur = document.getElementById("colors").value;
+      const quantite = parseInt(document.getElementById("quantity").value); // récupération de la quantité saisie
+      const couleur = document.getElementById("colors").value; // récupération de la couleur choisie
       const parent = document.getElementsByClassName("item__content")[0];
-      if (couleur != "") {
+
+      if (couleur != "") { // si la couleur est choisie --> ajout au panier de l'id, la quantité et la couleur
         addPanier({ id: id, quantite: quantite, couleur: couleur });
-
-    
-    //lien vers page cart.html
-
-        document.location.href = "../html/cart.html";
-      } else if (parent.children.length == 4) {
+        document.location.href = "../html/cart.html"; //lien vers page cart.html
+      
+      } else if (parent.children.length == 4) { // sinon message de rappel de choisir une couleur
         const message = document.createElement("p");
         message.innerHTML = "Veuillez choisir une couleur";
         message.style.color = "red";

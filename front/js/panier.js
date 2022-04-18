@@ -50,7 +50,7 @@ function changeQuantite(produit, quantite) {
   let foundProduit = panier.find((p) => p.id == produit.id); // contrôle si produit existant dans le panier
   if (foundProduit != undefined);
   {
-    foundProduit.quantite = parseInt(quantite);
+    foundProduit.quantite = parseInt(quantite); 
   }
   savePanier(panier);
 }
@@ -68,14 +68,3 @@ function getTotalQuantite() {
 }
 
 
-/* fonction calcul du prix
-
-function getTotalPrix() {
-  let panier = getPanier();
-  let total = 0;
-  for (let produit of panier) {
-    total += produit.quantite * produit.prix;
-  }
-  return total;
-}
-*/

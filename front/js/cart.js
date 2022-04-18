@@ -1,4 +1,8 @@
-// récupération du panier
+
+                  // Affichage d'un tableau récapitulatif des achats
+
+
+// récupération du panier (array) via localStorage (id,quantité,couleur)
 
 const panier = getPanier();
 console.log(panier);
@@ -8,8 +12,14 @@ console.log(panier);
 
 const items = document.getElementById("cart__items");
 
-for (let i = 0; i < panier.length; i++) {
+
+// parcourir l'array panier
+
+for (let i = 0; i < panier.length; i++) { 
   const produit = panier[i];
+
+
+// Envoi de la requête spécifique à chaque id du panier (pour nom, image et prix)
 
   fetch("http://localhost:3000/api/products/" + produit.id)
     .then(function (res) {
@@ -17,24 +27,27 @@ for (let i = 0; i < panier.length; i++) {
         return res.json();
       }
     })
-    .then(function (canape) { // création de l'élément article
+    .then(function (canape) { 
+      
+      
+      // création de l'élément article
 
       const article = document.createElement("article");
       article.classList.add("cart__item");
-      article.setAttribute("data-id", produit.id);
-      article.setAttribute("data-color", produit.couleur);
+      article.setAttribute("data-id", produit.id); // provient du localStorage
+      article.setAttribute("data-color", produit.couleur); // provient du localStorage
       items.appendChild(article);
 
 
-      // création élément et insertion image/alt
+      // création éléments et insertion image/alt
 
       const imageDiv = document.createElement("div");
       imageDiv.classList.add("cart__item__img");
       article.appendChild(imageDiv);
 
       const image = document.createElement("img");
-      image.src = canape.imageUrl;
-      image.alt = canape.altTxt;
+      image.src = canape.imageUrl; // API
+      image.alt = canape.altTxt; // API
       imageDiv.appendChild(image);
 
 
@@ -49,21 +62,21 @@ for (let i = 0; i < panier.length; i++) {
       contentDiv.appendChild(descriptionDiv);
 
       const titre = document.createElement("h2");
-      titre.innerHTML = canape.name;
+      titre.innerHTML = canape.name; // API
       descriptionDiv.appendChild(titre);
 
 
-      // création élément et insertion couleur
+      // création élément et insertion couleur choisi par l'utilisateur
 
       const couleur = document.createElement("p");
-      couleur.innerHTML = produit.couleur;
+      couleur.innerHTML = produit.couleur; // provient du localStorage
       descriptionDiv.appendChild(couleur);
 
 
       // création élément et insertion prix
 
       const prix = document.createElement("p");
-      prix.innerHTML = canape.price + " €";
+      prix.innerHTML = canape.price + " €"; // API
       descriptionDiv.appendChild(prix);
 
 
@@ -87,8 +100,9 @@ for (let i = 0; i < panier.length; i++) {
       saisie.setAttribute("name", "itemQuantity");
       saisie.setAttribute("min", 1);
       saisie.setAttribute("max", 100);
-      saisie.setAttribute("value", produit.quantite);
+      saisie.setAttribute("value", produit.quantite); // localStorage
       quantiteDiv.appendChild(saisie);
+
 
 
       // gestion de la suppression d'un produit
@@ -102,38 +116,40 @@ for (let i = 0; i < panier.length; i++) {
       suppression.innerHTML = "Supprimer";
       article.appendChild(suppression);
 
-      suppression.addEventListener("click", function (event) {
+      suppression.addEventListener("click", function (event) { // écoute événement "Supprimer" un article
         removeItem(produit);
         items.removeChild(article);
-        totalQuantite.innerHTML = getTotalQuantite();
+        totalQuantite.innerHTML = getTotalQuantite(); // mise à jour de la quantité
       });
 
 
       // gestion total quantité
 
-      const totalQuantite = document.getElementById("totalQuantity");
-      totalQuantite.innerHTML = getTotalQuantite();
+      const totalQuantite = document.getElementById("totalQuantity"); 
+
+      totalQuantite.innerHTML = getTotalQuantite(); // fonction calcul quantité et insertion de la quantité totale
 
 
       // gestion prix total
 
       const totalPrix = document.getElementById("totalPrice");
       
-      function getTotalPrix() {
+     function getTotalPrix() {  // calcul du prix total
         let panier = getPanier();
-        let total = 0;
+          let total = 0;
           for (let produit of panier) {
-          total += produit.quantite * produit.prix;
+          total +=  produit.quantite*canape.price;
         }
         return total;
       }
-      totalPrix.innerHtml = getTotalPrix;
 
+      totalPrix.innerHtml = getTotalPrix(); // insertion du prix total
+    
       
 
-      // écoute événement changement de la quantité --> changement prix
+      // écoute événement "changer la quantité" --> MAJ de la quantité et du prix
 
-      saisie.addEventListener("change", function (event) {
+        saisie.addEventListener("change", function (event) {
         changeQuantite(produit, saisie.value);
 
         totalQuantite.innerHTML = getTotalQuantite(); // mise à jour de la quantité
@@ -146,17 +162,15 @@ for (let i = 0; i < panier.length; i++) {
     });
 }
 
-const totalQuantite = document.getElementById("totalQuantity");
-totalQuantite.innerHTML = getTotalQuantite(); // mise à jour de la quantité
 
 
+              // Gestion des données du formulaire
 
-// gestion des données du formulaire
 
 const formulaire = document.getElementById("order");
 formulaire.addEventListener("click", function (event) { // écoute de l'événement saisie des données dans le formulaire
 
-  event.preventDefault(); // annule l'envoi du formulaire par défaut
+  event.preventDefault(); // annule l'envoi du formulaire par défaut afin de vérifier les champs
 
 
   //  saisie prénom
@@ -230,25 +244,94 @@ formulaire.addEventListener("click", function (event) { // écoute de l'événem
     errMail.innerHTML = "";
   }
 
+  // si aucune erreur dans les champs de saisie
+
   if (
     (errPrenom.innerHTML == "") &&
     (errNom.innerHTML == "") &&
     (errAdresse.innerHTML == "") &&
     (errVille.innerHTML == "") &&
     (errMail.innerHTML == "")
+  
   ) {
 
+  // tous les champs sont corrects --> création objet contact + tableau de produits 
+  
+    let objetContact = {
+  
+    firstName : document.getElementById("firstName").value,
+    lastName : document.getElementById("lastName").value,
+    address : document.getElementById("address").value,
+    city : document.getElementById("city").value,
+    email : document.getElementById("email").value
+  
+  };
 
-    // confirmation de la commande
+/*
+  // création tableau produits
+
+    let produit = ['nom' 'id' 'couleur' 'quantite' 'prix'];
+
+  
+
+*/
+
+
+  // confirmation de la commande 
    
-    const bouton = document.getElementsByClassName(
-      "cart__order__form__submit"
-    )[0];
+    const bouton = document.getElementsByClassName("cart__order__form__submit")[0];
     bouton.addEventListener("click", function (event) {
-     
-      document.location.href = "../html/confirmation.html"; // lien vers la page confirmation
-      
-    });
-  }
-});
 
+
+  // fonction envoi requête POST sur l’API et récupération de l’identifiant de commande dans la réponse 
+
+    // send();
+
+
+  // lien vers la page confirmation
+
+    document.location.href = "../html/confirmation.html"; 
+  });
+}
+});
+    
+/*
+
+          // envoi de la requête POST et récupération de l'identifiant de commande
+
+    function send() {
+
+    fetch("http://localhost:3000/api/products/order", {
+
+        method: "POST",
+        headers: {
+        Accept: "application/json",
+                "Content-Type": "application/json",
+       },
+
+        body: JSON.stringify( 
+
+        // objet contact + tableau produits
+
+      )}
+
+    .then(function (res) {
+      if (res.ok) {
+      return res.json();
+  }
+  })
+
+   .then(function (value) { 
+
+
+
+            // récupération de l'identifiant de commande sur la page confirmation
+
+  window.location.href = "../html/confirmation.html?orderId=" + value.postData.orderId;
+})
+
+   .catch(function (err) {
+    console.error(err);
+  })
+    )}
+*/
