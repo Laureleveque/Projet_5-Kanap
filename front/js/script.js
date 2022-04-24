@@ -1,7 +1,7 @@
-          //  Insertion des produits dans la page d’accueil
+          //  Insertion des produits de l'API dans la page d’accueil
 
 
-// envoi requête Get - Récupération des données de l'API
+                    // envoi requête GET - Récupération des données de l'API
 
 fetch("http://localhost:3000/api/products")
   .then(function (res) { // réponse à la requête
@@ -16,7 +16,7 @@ fetch("http://localhost:3000/api/products")
     console.log(tousLesCanapes);
 
 
-    //récupération des éléments du tableau et insertion de chaque élément dans la page d'accueil
+                 //récupération des éléments du tableau et insertion de chaque élément dans la page d'accueil
 
     const section = document.getElementById("items"); // recherche dans le document l'élément dont l'id est "items (récupère la balise où afficher les produits)
 

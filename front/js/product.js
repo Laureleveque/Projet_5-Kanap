@@ -75,6 +75,7 @@ fetch("http://localhost:3000/api/products/" + id)
 
     const bouton = document.getElementById("addToCart");
     bouton.addEventListener("click", function (event) {
+      
       const quantite = parseInt(document.getElementById("quantity").value); // récupération de la quantité saisie
       const couleur = document.getElementById("colors").value; // récupération de la couleur choisie
       const parent = document.getElementsByClassName("item__content")[0];
@@ -95,5 +96,5 @@ fetch("http://localhost:3000/api/products/" + id)
   //  si code statut erroné
 
   .catch(function (err) {
-    console.error(err);
+    console.error(erreur);
   });

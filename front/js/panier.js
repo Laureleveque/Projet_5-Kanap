@@ -8,6 +8,7 @@ function savePanier(panier) {
 // fonction récupération de l'item "panier"
 
 function getPanier() {
+
   let panier = localStorage.getItem("panier"); // panier = [{id, quantite, couleur}];
 
   if (panier == null) { // si panier vide --> tableau vide
@@ -38,18 +39,18 @@ function addPanier(produit) {
 
 function removeItem(produit) {
   let panier = getPanier();
-  panier = panier.filter((p) => p.id != produit.id); // on filtre le tableau et on conserve tous les produits différent de l'id à suppimer
+  console.log(panier);
+  panier = panier.filter((p) => p.id != produit.id || p.couleur != produit.couleur); // on filtre le tableau et on conserve tous les produits différents de l'id à supprimer
   savePanier(panier);
 }
 
 
-// fonction gérer la quantité
+// fonction changer la quantité
 
 function changeQuantite(produit, quantite) {
   let panier = getPanier();
   let foundProduit = panier.find((p) => p.id == produit.id); // contrôle si produit existant dans le panier
-  if (foundProduit != undefined);
-  {
+  if (foundProduit != undefined) {
     foundProduit.quantite = parseInt(quantite); 
   }
   savePanier(panier);
@@ -66,5 +67,3 @@ function getTotalQuantite() {
   }
   return number;
 }
-
-
