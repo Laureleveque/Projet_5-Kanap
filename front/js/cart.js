@@ -126,7 +126,7 @@ for (let i = 0; i < panier.length; i++) {
 
       
       
-               // gestion de la suppression d'un produit --> MAJ de la quantité et du prix total
+      // gestion de la suppression d'un produit --> MAJ de la quantité et du prix total
 
       const deleteDiv = document.createElement("div");
       deleteDiv.classList.add("cart__item__content__settings__delete");
@@ -139,50 +139,53 @@ for (let i = 0; i < panier.length; i++) {
 
       suppression.addEventListener("click", function (event) { // écoute événement "Supprimer" un article
         removeItem(produit); 
-        items.removeChild(article); 
+          items.removeChild(article);
       
-        totalQuantite.innerHTML = getTotalQuantite(); // mise à jour de la quantité
+          totalQuantite.innerHTML = getTotalQuantite(); // mise à jour de la quantité
         
-        totalPrixPanier -= produit.quantite*canape.price; // mise à jour du prix total
-        totalPrix.innerHTML = totalPrixPanier;
+          let totalPrixPanier = parseInt(totalPrix.innerHTML); // prix total avant suppression
+          totalPrixPanier -= produit.quantite*canape.price; // mise à jour du prix total
+          totalPrix.innerHTML = totalPrixPanier;
       })
 
 
-      // écoute événement "changer la quantité" --> MAJ de la quantité et du prix total
+          // écoute événement "changer la quantité" --> MAJ de la quantité et du prix total
       
       let oldValue = parseInt(saisie.value); // on sauvegarde la valeur actuelle de la saisie (avant évènement)
       
       saisie.addEventListener("change", function (event) {
-        changeQuantite(produit, saisie.value); // changement de la quantité dans le localStorage
-        totalQuantite.innerHTML = getTotalQuantite(); // mise à jour de la quantité
+          changeQuantite(produit, saisie.value); // changement de la quantité dans le localStorage
+
+          totalQuantite.innerHTML = getTotalQuantite(); // mise à jour de la quantité
       
-        let newValue = parseInt(saisie.value); // valeur de la saisie après changement
+          let newValue = parseInt(saisie.value); // valeur de la saisie après changement
         
-        let totalPrixPanier = parseInt(totalPrix.innerHTML); // prix total avant changement
-        
-        if (newValue > oldValue) {
+          let totalPrixPanier = parseInt(totalPrix.innerHTML); // prix total avant changement
+
+          if (newValue > oldValue) {
           totalPrixPanier += (newValue - oldValue) * canape.price; // on calcule le nouveau prix avec la nouvelle saisie
         
-        } else {
+          } else {
           totalPrixPanier -= (oldValue - newValue) * canape.price; // on calcule le nouveau prix avec la nouvelle saisie
-        }
+          }
         
-        totalPrix.innerHTML = totalPrixPanier;
+          totalPrix.innerHTML = totalPrixPanier;
         
-        oldValue = newValue; // mise à jour de la valeur actuelle de la saisie (avant le prochain évènement)
-        })    
-      })
+          oldValue = newValue; // mise à jour de la valeur actuelle de la saisie (avant le prochain évènement)
+          })    
+        })
   
-      .catch(function (err) {
+    .catch(function (err) {
         console.error(err);
       });  
-      }
+    }
 
   
               // gestion des données du formulaire
 
 
       const formulaire = document.getElementById("order");
+      
       formulaire.addEventListener("click", function (event) { // écoute de l'événement saisie des données dans le formulaire
 
       event.preventDefault(); // annule l'envoi du formulaire par défaut afin de vérifier les champs
@@ -294,22 +297,20 @@ for (let i = 0; i < panier.length; i++) {
       for(const produit of panier) {
         tableauProduits.push(produit.id);
       }
-
-    
          
+
       // création variable incluant l'objet contact et le tableau produit
 
       let objetPrincipal = { contact: objetContact, products: tableauProduits}
 
+
       // confirmation de la commande 
    
       const bouton = document.getElementsByClassName("cart__order__form__submit")[0];
-      bouton.addEventListener("click", function (event) {
-  
+      bouton.addEventListener("click", function (event) {    
 
-      // fonction envoi requête POST sur l’API et récupération de l’identifiant de commande dans la réponse
+      send(objetPrincipal); // fonction envoi requête POST sur l’API et récupération de l’identifiant de commande dans la réponse
 
-      send(objetPrincipal);
       });
       }
       });
@@ -340,6 +341,7 @@ for (let i = 0; i < panier.length; i++) {
       })
 
       .then(function(reponse) {   // récupération de l'identifiant de commande sur la page confirmation
+
 
         // réinitialisation du panier
         savePanier([]);

@@ -39,7 +39,6 @@ function addPanier(produit) {
 
 function removeItem(produit) {
   let panier = getPanier();
-  console.log(panier);
   panier = panier.filter((p) => p.id != produit.id || p.couleur != produit.couleur); // on filtre le tableau et on conserve tous les produits différents de l'id à supprimer
   savePanier(panier);
 }
@@ -49,8 +48,9 @@ function removeItem(produit) {
 
 function changeQuantite(produit, quantite) {
   let panier = getPanier();
-  let foundProduit = panier.find((p) => p.id == produit.id); // contrôle si produit existant dans le panier
-  if (foundProduit != undefined) {
+  let foundProduit = panier.find((p) => p.id == produit.id && p.couleur == produit.couleur); // cherche le produit dans le panier
+  if (foundProduit != undefined) { // contrôle si produit existant dans le panier
+    produit.quantite = parseInt(quantite);
     foundProduit.quantite = parseInt(quantite); 
   }
   savePanier(panier);
