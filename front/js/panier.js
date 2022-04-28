@@ -26,7 +26,7 @@ function addPanier(produit) {
 
   let foundProduit = panier.find(
     (p) => p.id == produit.id && p.couleur == produit.couleur); // contrôle si produit existant dans le panier
-    if (foundProduit != undefined && foundProduit.couleur == produit.couleur) {
+  if (foundProduit != undefined && foundProduit.couleur == produit.couleur) {
     foundProduit.quantite += produit.quantite; // le produit existe dans le panier --> + la nouvelle quantité
   } else {
     panier.push(produit); // on ajoute le produit dans le panier
@@ -51,7 +51,7 @@ function changeQuantite(produit, quantite) {
   let foundProduit = panier.find((p) => p.id == produit.id && p.couleur == produit.couleur); // cherche le produit dans le panier
   if (foundProduit != undefined) { // contrôle si produit existant dans le panier
     produit.quantite = parseInt(quantite);
-    foundProduit.quantite = parseInt(quantite); 
+    foundProduit.quantite = parseInt(quantite);
   }
   savePanier(panier);
 }

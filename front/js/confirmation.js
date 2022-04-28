@@ -6,11 +6,10 @@
 const url = new URL(window.location.href); // récupération de l'id du produit dans l'URL
 const id = url.searchParams.get("id");
 
-    const message = document.getElementById("orderId");
-  
-    message.innerHTML = id;
+const message = document.getElementById("orderId");
+
+message.innerHTML = id;
 
 
 
 
-    
